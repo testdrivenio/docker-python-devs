@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+
+  jupyter:
+    build: .
+    ports:
+      - 8888:8888
+    environment:
+      - DATABASE_URL=postgres://postgres:postgres@db:5432/stuff
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
